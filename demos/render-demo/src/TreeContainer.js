@@ -168,19 +168,19 @@ class TreeContainer extends Component {
                 )
             )(keysIn(newProps));
 
-            // Always update this component's props
-            _dashprivate_dispatch(updateProps({
-                props: newProps,
-                itempath: _dashprivate_path
-            }));
+            // // Always update this component's props
+            // _dashprivate_dispatch(updateProps({
+            //     props: newProps,
+            //     itempath: _dashprivate_path
+            // }));
 
-            // Only dispatch changes to Dash if a watched prop changed
-            if (watchedKeys.length) {
-                _dashprivate_dispatch(notifyObservers({
-                    id: id,
-                    props: pick(watchedKeys)(newProps)
-                }));
-            }
+            // // Only dispatch changes to Dash if a watched prop changed
+            // if (watchedKeys.length) {
+            //     _dashprivate_dispatch(notifyObservers({
+            //         id: id,
+            //         props: pick(watchedKeys)(newProps)
+            //     }));
+            // }
 
         };
     }
