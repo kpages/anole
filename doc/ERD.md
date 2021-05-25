@@ -2,16 +2,34 @@
 ## 术语说明
 ### SmartBoard
 
-#### 简述
-展示在交互界面的一个面板, 可以是一大屏，也可以是一个汇报报告或嵌入在指定Web 页面位置的一个小组件。
+## 架构设计
 
-#### 架构
-
-* Layout 展示及布局组件,觉得面板展示内容
-* Render Layout 的渲染引擎, 由Layout 数据驱动, 输入Layout 数据, 输出Dom
+#### 概述
+* Layout 展示及布局组件, 描述面板展示内容
 * MessageCallBack 消息通信保障
+* Renderer Layout 的渲染引擎, 由Layout 数据驱动, 输入Layout 数据, 输出Dom
+* DashEditor 面板交互式的编辑器, 生成Layout 及 MessageCallBack 
 
-#### Layout 构成
+
+#### 整体功能架构图
+
+```mermaid
+graph TD
+    A[Anole] -->|has| B1(ComponentLib)
+    A[Anole] -->|has| B2(DashEditor)
+    B1 --> C0(config)
+    B2 --> C0
+    C0 --> B3(AnoleServer)
+    B3 --> D0(Dashboaord App)
+    B4(Renderer) --> D0
+    B11(ComponentLib js)  --> D0 
+
+```
+
+#### 整体技术架构图
+#### Layout 数据结构及标准
+
+
 ```
 Demo1  children 为展示内容, Div 通常为父节点
 {
@@ -61,35 +79,19 @@ Demo2 嵌套输出, children 为嵌套内容
 }
 ```
 
-#### Render 构成
- dash render 通过api 获取 layout 的json ; 然后渲染到指定 dom 中, 可以满足在不同地方，嵌入面板的需求；但api 获取的内容只能是flask 服务提供的Python Layout； 需要重写他； 通过指定dashboard_id 和url 获取layout。 这种方案解决只读的渲染问题。
 
- 在board 编辑时, 为了做到流畅编辑, 不建议做api 的一层数据交换, 需要重新定制一个editor; 同过js 调用，传入json渲染。
- 参考 https://github.com/plotly/dash-renderer/blob/master/src/TreeContainer.js
- ? 每次都要重新渲染吗？ 是否可以局部渲染？
+#### MessageCallBack 数据结构及标准
+#### Renderer 模块及时序图
+```mermaid
+sequenceDiagram
+participant A as cmd_web
+participant B as cmd_api
 
- ```
- let layout = {
-    "type": "Div",
-    "namespace": "dash_html_components",
-    "props": {
-        "children": "Div 展示内容",
-    }
-}
-# Registry 参考 https://github.com/plotly/dash-renderer/blob/master/src/registry.js; 
-利用 不同组件的 namespace及type 获取创建element 的 fn
-const element = Registry.resolve(layout);
+```
+#### DashEditor 模块及时序图
+#### 数据库表设计
 
-function createElement(element, props, extraProps, children) {
-    const allProps = mergeRight(props, extraProps);
-    if (Array.isArray(children)) {
-        return React.createElement(element, allProps, ...children);
-    }
-    return React.createElement(element, allProps, children);
-}
-然后通过 createElement; 动态创建element
-
- ```
+ 
 
 
 
