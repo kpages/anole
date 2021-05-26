@@ -79,12 +79,9 @@ Demo2 嵌套输出, children 为嵌套内容
 
 #### MessageCallBack 数据结构及标准
 #### Renderer 模块及时序图
-```mermaid
-sequenceDiagram
-participant A as cmd_web
-participant B as cmd_api
 
-```
+[文档]](/renderer-erd.md)
+
 #### DashEditor 模块及时序图
 #### 数据库表设计
 
