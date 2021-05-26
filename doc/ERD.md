@@ -80,7 +80,7 @@ Demo2 嵌套输出, children 为嵌套内容
 #### MessageCallBack 数据结构及标准
 #### Renderer 模块及时序图
 
-[文档]](/renderer-erd.md)
+[模块及时序图]( /renderer-erd.md )
 
 #### DashEditor 模块及时序图
 #### 数据库表设计
